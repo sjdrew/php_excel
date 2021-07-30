@@ -1113,7 +1113,11 @@ static long _php_excel_date_unpack(BookHandle book, double dt)
 
 	if (tm.tm_year) tm.tm_year -= 1900;
 	if (tm.tm_mon) tm.tm_mon -= 1;
-	if (tm.tm_mday == 0) tm.tm_mday = 1; // sjd: fix for time field 
+        if (tm.tm_mday == 0 && tm.tm_year == 0) {
+                tm.tm_mday = 1; // sjd: fix for time field, make them display as 1970-01-01 HH:mm:ss
+                tm.tm_year = 70;
+                tm.tm_mon = 0;
+        }
 	
 	tm.tm_isdst = -1;	
 
