@@ -1111,9 +1111,11 @@ static long _php_excel_date_unpack(BookHandle book, double dt)
 		return -1;
 	}
 
-	tm.tm_year -= 1900;
-	tm.tm_mon -= 1;
-	tm.tm_isdst = -1;
+	if (tm.tm_year) tm.tm_year -= 1900;
+	if (tm.tm_mon) tm.tm_mon -= 1;
+	if (tm.tm_mday == 0) tm.tm_mday = 1; // sjd: fix for time field 
+	
+	tm.tm_isdst = -1;	
 
 	return mktime(&tm);
 }
