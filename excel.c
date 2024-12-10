@@ -1121,7 +1121,7 @@ static long _php_excel_date_unpack(BookHandle book, double dt)
 	
 	tm.tm_isdst = -1;	
 
-	return mktime(&tm);
+	return timegm(&tm);
 }
 
 /* {{{ proto int ExcelBook::unpackDate(double date)
